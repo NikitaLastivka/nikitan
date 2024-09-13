@@ -103,7 +103,7 @@ function init() {
 }
 
 function loadAsset(asset) {
-    loader.load(`/${asset}.glb`, (gltf) => { 
+    loader.load(`https://smart-bike.nl/nikitan2/assets/js/${asset}.glb`, (gltf) => {
         if (object) scene.remove(object); // Удаляем предыдущий объект, если он существует
 
         object = gltf.scene; // Получаем сцену из загруженной модели
