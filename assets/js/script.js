@@ -6,7 +6,7 @@ import { DRACOLoader } from '/node_modules/three/examples/jsm/loaders/DRACOLoade
 let camera, scene, renderer, object, loader, mixer, model;
 const clock = new THREE.Clock();
 
-const params = { asset: 'ballTake_sprite_reserve4' }; // Загружаемая модель по умолчанию
+const params = { asset: 'ballTake_sprite_reserve3' }; // Загружаемая модель по умолчанию
 const assets = ["Armature.001|Armature.001Action"]; // Массив анимаций
 
 window.onerror = function (message, source, lineno, colno, error) {
@@ -117,7 +117,6 @@ function loadAsset(asset) {
         model = gltf;
         object.traverse((child) => {
             if (child.isMesh) {
-                
                 child.castShadow = true;
                 child.receiveShadow = true;
             }
