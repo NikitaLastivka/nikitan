@@ -103,7 +103,7 @@ function init() {
 }
 
 function loadAsset(asset) {
-    loader.load(`assets/js/${asset}.glb`, (gltf) => {
+    loader.load(`assets3/js/${asset}.glb`, (gltf) => {
         if (object) scene.remove(object); // Удаляем предыдущий объект, если он существует
 
         object = gltf.scene; // Получаем сцену из загруженной модели
