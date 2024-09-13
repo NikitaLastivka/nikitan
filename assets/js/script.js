@@ -1,7 +1,6 @@
 import * as THREE from '/node_modules/three/build/three.module.js';
 import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from '/node_modules/three/examples/jsm/loaders/DRACOLoader.js';
 
 let camera, scene, renderer, object, loader, mixer, model;
 const clock = new THREE.Clock();
@@ -38,12 +37,6 @@ function init() {
 
     // Загрузка модели
     loader = new GLTFLoader(); 
-    const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/'); // Путь к декодерам Draco
-    dracoLoader.setDecoderConfig({ type: 'js' }); // Опционально: укажите тип (js или wasm)
-
-    // Подключаем DRACOLoader к GLTFLoader
-    loader.setDRACOLoader(dracoLoader);
     loadAsset(params.asset);
 
     // Рендерер
@@ -117,7 +110,6 @@ function loadAsset(asset) {
         model = gltf;
         object.traverse((child) => {
             if (child.isMesh) {
-                console.log(child.name || 'Unnamed object');
                 child.castShadow = true;
                 child.receiveShadow = true;
             }
