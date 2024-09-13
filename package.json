@@ -4,9 +4,5 @@
   },
   "devDependencies": {
     "vite": "^5.4.5"
-  },
-  "scripts": {
-    "build": "vite build",
-    "start": "vite"
   }
 }
