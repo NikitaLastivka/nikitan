@@ -116,8 +116,8 @@ function loadAsset(asset) {
         object = gltf.scene; // Получаем сцену из загруженной модели
         model = gltf;
         object.traverse((child) => {
-            console.log(child)
             if (child.isMesh) {
+                console.log(child.name || 'Unnamed object');
                 child.castShadow = true;
                 child.receiveShadow = true;
             }
