@@ -57,12 +57,16 @@ function init() {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.target.set(0, 30, 0);
     controls.enableRotate = false;
+    controls.enablePan = false;
     controls.enableZoom = false;
     controls.update();
 
     window.addEventListener('resize', onWindowResize);
 
-    document.querySelector('.do_action').addEventListener('click', () => {        
+    let do_action2 = document.querySelector('.do_action');
+    
+    do_action2.onclick = function(){
+        do_action2.onclick = false;
         mixer = new THREE.AnimationMixer(object);
         const action = mixer.clipAction(model.animations[0]);
         action.loop = THREE.LoopOnce;
@@ -105,8 +109,7 @@ function init() {
                 }
             }, 20);      
         }, 7900)
-    });
-    
+    }
 }
 
 function loadAsset(asset) {
