@@ -103,7 +103,7 @@ function init() {
 }
 
 function loadAsset(asset) {
-    loader.load(`https://smart-bike.nl/nikitan2/assets/js/${asset}.glb`, (gltf) => {
+    loader.load(`/assets/js/${asset}.glb`, (gltf) => {
         if (object) scene.remove(object); // Удаляем предыдущий объект, если он существует
 
         object = gltf.scene; // Получаем сцену из загруженной модели
@@ -135,7 +135,6 @@ function loadAsset(asset) {
         console.log((xhr.loaded / xhr.total * 100) + '% загружено'); // Отображаем прогресс загрузки
         let load_status = document.querySelector('.load_status');
         load_status.textContent = (xhr.loaded / xhr.total * 100) + '% загружено';
-        console.log(gltf);
     },
     (error) => {
         console.error('Ошибка при загрузке GLTF файла:', error);
