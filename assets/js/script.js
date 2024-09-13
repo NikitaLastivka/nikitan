@@ -135,6 +135,7 @@ function loadAsset(asset) {
         console.log((xhr.loaded / xhr.total * 100) + '% загружено'); // Отображаем прогресс загрузки
         let load_status = document.querySelector('.load_status');
         load_status.textContent = (xhr.loaded / xhr.total * 100) + '% загружено';
+        console.log(gltf);
     },
     (error) => {
         console.error('Ошибка при загрузке GLTF файла:', error);
