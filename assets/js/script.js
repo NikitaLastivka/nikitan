@@ -1,11 +1,12 @@
 import * as THREE from '/node_modules/three/build/three.module.js';
 import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from '/node_modules/three/examples/jsm/loaders/DRACOLoader.js';
 
 let camera, scene, renderer, object, loader, mixer, model;
 const clock = new THREE.Clock();
 
-const params = { asset: 'ballTake_sprite_reserve3' }; // Загружаемая модель по умолчанию
+const params = { asset: 'ballTake_sprite_reserve4' }; // Загружаемая модель по умолчанию
 const assets = ["Armature.001|Armature.001Action"]; // Массив анимаций
 
 window.onerror = function (message, source, lineno, colno, error) {
@@ -37,6 +38,12 @@ function init() {
 
     // Загрузка модели
     loader = new GLTFLoader(); 
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/'); // Путь к декодерам Draco
+    dracoLoader.setDecoderConfig({ type: 'js' }); // Опционально: укажите тип (js или wasm)
+
+    // Подключаем DRACOLoader к GLTFLoader
+    loader.setDRACOLoader(dracoLoader);
     loadAsset(params.asset);
 
     // Рендерер
@@ -110,6 +117,7 @@ function loadAsset(asset) {
         model = gltf;
         object.traverse((child) => {
             if (child.isMesh) {
+                
                 child.castShadow = true;
                 child.receiveShadow = true;
             }
