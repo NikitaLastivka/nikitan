@@ -267,3 +267,10 @@
   height: auto;
   z-index: 2;
 }
+
+@media (max-width: 768px) {
+  .logo {
+    max-width: 195px;
+    width: 90%;
+  }
+}
