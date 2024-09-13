@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikitan Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preload" href="/assets/ballTake_sprite_reserve3-CmtVa-Pe.glb" as="fetch" crossorigin="anonymous" />
+  <script type="module" crossorigin src="/assets/index-CqvsC5Dp.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DfFvCAPt.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="loader active"></div>
+        <p class="load_status">0</p>
+        <div class="container" style="display:none;">
+            <img class="logo" src="/assets/logo-DzUSFFWF.png" alt="logo">
+            <div class="slot_machine" id="slot_machine"></div>
+            <div class="btn do_action"><span>ОПУСТИТИ РУКУ</span></div>
+        </div>
+        <div class="prize_container">
+            <img class="logo" src="/assets/logo-DzUSFFWF.png" alt="logo">
+            <img src="/assets/prize-DlXu1l7d.png" alt="prize" class="prize_element">
+            <p class="prize_name">КРЕМ - ГЕЛЬ</p>
+            <p class="prize_code">Назвіть цей код: vdfgd</p>
+            <div class="btn"><span>ВИ ВИГРАЛИ!!!!</span></div>
+            <!--<img src="assets/img/background_points.png" class="prize_points">-->
+            <video autoplay muted loop playsinline>
+                <source src="/assets/background_video-BwIIqItC.webm" type="video/webm">
+                <source src="/assets/background_video-DX6UyZZK.mov" type="video/mov">
+            </video>
+        </div>
+    </div>
+    <script>
+        let do_action = document.querySelector('.do_action');
+        do_action.addEventListener('click', function(){
+            do_action.innerHTML = '<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
+            do_action.classList.add('active');
+        })
+    </script>
+</body>
+</html>
