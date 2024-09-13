@@ -152,15 +152,16 @@
         align-items: center;
         padding: 50px 0;
         box-sizing: border-box;
-        transform: scale(0) translate(0, 0);
+        transform: scale(0)!important;
         transition: 1s ease-in-out;
         pointer-events: none;
         z-index: 3;
         &.active{
             top: 0;
             left: 0;
-            transform: scale(1);
+            transform: scale(1)!important;
             pointer-events: all;
+            opacity: 1!important;
         }
         .btn{
             margin-top: 16px;
