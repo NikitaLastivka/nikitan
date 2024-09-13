@@ -108,7 +108,7 @@
         color: #000;
         font-family: "Roboto", sans-serif;
         font-weight: 900;
-        font-size: 56px;
+        font-size: 48px;
         display: inline-block;
         opacity: 0;
         animation: blink 1.5s infinite step-start both;
@@ -218,5 +218,14 @@
     .logo{
         max-width: 195px;
         width: 90%;
+    }
+    .prize_code{
+        font-size: 30px;
+    }
+    .btn{
+        height: 75px;
+    }
+    .btn span{
+        font-size: 20px;
     }
 }
