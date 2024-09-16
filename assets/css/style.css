@@ -263,10 +263,10 @@
 }
 .prize_points {
   position: absolute;
-  left: -63%;
-  bottom: -16%;
-  width: 230%;
-  height: 124%;
+  left: 0;
+  bottom: -50%;
+  width: 100%;
+  height: auto;
   z-index: 2;
 }
 
@@ -283,5 +283,13 @@
   }
   .btn span {
     font-size: 20px;
+  }
+  .prize_points {
+    position: absolute;
+    left: -63%;
+    bottom: -16%;
+    width: 230%;
+    height: 124%;
+    z-index: 2;
   }
 }
