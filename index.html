@@ -17,26 +17,26 @@
             <div class="slot_machine" id="slot_machine"></div>
             <div class="btn do_action"><span>ОПУСТИТИ РУКУ</span></div>
         </div>
-        <div class="prize_container" style="opacity: 0; transform: scale(0) translate(0, 0);">
+        <div class="prize_container">
             <img class="logo" src="assets/img/logo.png" alt="logo">
             <img src="assets/img/prize.png" alt="prize" class="prize_element">
             <p class="prize_name">КРЕМ - ГЕЛЬ</p>
             <p class="prize_code">Назвіть цей код: vdfgd</p>
             <div class="btn"><span>ВИ ВИГРАЛИ!!!!</span></div>
-            <img src="assets/img/bg_points.png" class="prize_points">
+            <img src="assets/img/lights_030.png" class="prize_points">
             <!--<video autoplay muted loop playsinline>
                 <source src="assets/img/background_video.webm" type="video/webm">
                 <source src="assets/img/Done_video.mov" type="video/mov">
             </video>-->
         </div>
-    </div>
-    <script type="module" src="assets/js/script.js"></script>  
+    </div> 
+    <script type="module" src="assets/js/script.js"></script> 
     <script>
         let do_action = document.querySelector('.do_action');
         do_action.addEventListener('click', function(){
             do_action.innerHTML = '<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
             do_action.classList.add('active');
-        })
+        });
     </script>
 </body>
 </html>
