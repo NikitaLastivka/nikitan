@@ -16,7 +16,7 @@ function init() {
     scene = new THREE.Scene();
 
     new RGBELoader()
-        .setPath( 'assets/js/textures/equirectangular/' )
+        .setPath( 'https://smart-bike.nl/nikitan/assets/js/' )
         .load( 'lauter_waterfall_1k.hdr', function ( texture ) {
             texture.mapping = THREE.EquirectangularReflectionMapping;
 
@@ -25,7 +25,7 @@ function init() {
 
             render();
 
-            const loader = new GLTFLoader().setPath( 'assets/js/models/gltf/' );
+            const loader = new GLTFLoader().setPath( 'https://smart-bike.nl/nikitan/assets/js/' );
             loader.load( 'ballTake_sprite_reserve3.gltf', async function ( gltf ) {
 
                 model = gltf.scene;
