@@ -19,13 +19,25 @@
         left: 50%;
         margin-top: -75px;
         margin-left: -75px;
-        opacity: 0;
-        pointer-events: none;
         transition: .4s;
         z-index: 5;
-        &.active{
-            opacity: 1;
-            pointer-events: all;
+        &_container{
+            opacity: 0;
+            pointer-events: none;
+            &.active{
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+        &_percents{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 200%);
+            color: #fff;
+            font-size: 35px;
+            font-weight: 700;
+            font-family: "Roboto", sans-serif;
         }
     }
     .loader,

@@ -14,7 +14,7 @@ function init() {
     //camera.position.set( - 1.8, 0.6, 2.7 );
     camera.position.set(0, 27, 125 );
     scene = new THREE.Scene();
-
+    let totalProgress = 0;
     new RGBELoader()
         .setPath( 'https://smart-bike.nl/nikitan/assets/js/' )
         .load( 'lauter_waterfall_1k.hdr', function ( texture ) {
@@ -42,15 +42,34 @@ function init() {
                     action.play();
                 }
 
-                let loader = document.querySelector('.loader'),
+                let loader_container = document.querySelector('.loader_container'),
                     containerBlock = document.querySelector('.container');
 
                 containerBlock.style.display = 'flex';
                 onWindowResize();
-                loader.classList.remove('active');
+                loader_container.classList.remove('active');
 
-            } );
+            }, 
+            (xhr) => {
+                let load_status = document.querySelector('.loader_percents');
+                const gltfProgress = (xhr.loaded / xhr.total) * 50;
+                totalProgress = 50 + gltfProgress;
+                load_status.textContent = totalProgress.toFixed(2) + '%';
+            },
+            (error) => {
+                console.error('Ошибка при загрузке GLTF файла:', error);
+            });
 
+        }, 
+        (xhr) => {
+            // Прогресс HDR загрузки
+            let load_status = document.querySelector('.loader_percents');
+            const hdrProgress = (xhr.loaded / xhr.total) * 50;
+            totalProgress = hdrProgress;
+            load_status.textContent = totalProgress.toFixed(2) + '%';
+        },
+        (error) => {
+            console.error('Ошибка при загрузке HDR файла:', error);
         }
      );
 
