@@ -69,7 +69,7 @@ function init() {
             load_status.textContent = totalProgress.toFixed(2) + '%';
         },
         (error) => {
-            console.error('Ошибка при загрузке HDR файла:', error);
+            alert('Ошибка при загрузке HDR файла:', error);
         }
      );
 
