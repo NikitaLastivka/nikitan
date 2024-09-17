@@ -16,7 +16,7 @@ function init() {
     scene = new THREE.Scene();
     let totalProgress = 0;
     new RGBELoader()
-        .setPath( '/assets/js/models/gltf/' )
+        .setPath( 'https://smart-bike.nl/nikitan/assets/js/' )
         .load( 'zwartkops_start_sunset_1k.hdr', function ( texture ) {
             texture.mapping = THREE.EquirectangularReflectionMapping;
 
@@ -25,7 +25,7 @@ function init() {
 
             render();
 
-            const loader = new GLTFLoader().setPath( '/assets/js/models/gltf/' );
+            const loader = new GLTFLoader().setPath( 'https://smart-bike.nl/nikitan/assets/js/' );
             loader.load( 'Finall.gltf', async function ( gltf ) { //3 default
 
                 model = gltf.scene;
