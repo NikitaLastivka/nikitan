@@ -249,6 +249,7 @@
   z-index: 1;
   -o-object-fit: cover;
      object-fit: cover;
+  opacity: 0.4;
 }
 .prize_container .logo {
   position: relative;
