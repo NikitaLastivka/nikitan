@@ -157,7 +157,8 @@ function init() {
 
     window.onclick = onMouseClick;
     window.addEventListener( 'resize', onWindowResize );
-
+    setViewportHeight();
+    window.onscroll = setViewportHeight;
 }
 
 function showPrize(){
@@ -180,13 +181,18 @@ function onWindowResize() {
     renderer.setSize( window.innerWidth, window.innerHeight );
 
     render();
-
+    setViewportHeight();
 }
 
 function render() {
 
     renderer.render( scene, camera );
 
+}
+
+function setViewportHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
 function animate() {
