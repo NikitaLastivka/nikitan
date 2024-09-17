@@ -93,8 +93,8 @@ function init() {
     do_action2.onclick = automatAnimate;
 
     function automatAnimate(){
-        console.log(camera)
         do_action2.onclick = false;
+        window.onclick = false;
         mixer = new THREE.AnimationMixer(model);
         const action = mixer.clipAction(object.animations[1]);
         action.loop = THREE.LoopOnce;
@@ -155,7 +155,7 @@ function init() {
         }
     }
 
-    window.addEventListener('click', onMouseClick);
+    window.onclick = onMouseClick;
     window.addEventListener( 'resize', onWindowResize );
 
 }
