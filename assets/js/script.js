@@ -83,9 +83,9 @@ function init() {
 
     const controls = new OrbitControls( camera, renderer.domElement );
     controls.target.set(0, 20, 0);
-    /*controls.enableRotate = false;
+    controls.enableRotate = false;
     controls.enablePan = false;
-    controls.enableZoom = false;*/
+    controls.enableZoom = false;
     controls.update();
 
     let do_action2 = document.querySelector('.do_action');
