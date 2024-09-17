@@ -74,7 +74,8 @@ function init() {
      );
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
-    renderer.setPixelRatio( window.devicePixelRatio / 2 );
+    //renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
     renderer.setAnimationLoop(animate);
     renderer.setSize( container.offsetWidth, container.offsetHeight );
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
