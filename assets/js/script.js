@@ -16,8 +16,8 @@ function init() {
     scene = new THREE.Scene();
     let totalProgress = 0;
     new RGBELoader()
-        .setPath( 'https://smart-bike.nl/nikitan/assets/js/' )
-        .load( 'lauter_waterfall_1k.hdr', function ( texture ) {
+        .setPath( '/assets/js/models/gltf/' )
+        .load( 'zwartkops_start_sunset_1k.hdr', function ( texture ) {
             texture.mapping = THREE.EquirectangularReflectionMapping;
 
             scene.background = new THREE.Color(0xfb3c8c);
@@ -25,8 +25,8 @@ function init() {
 
             render();
 
-            const loader = new GLTFLoader().setPath( 'https://smart-bike.nl/nikitan/assets/js/' );
-            loader.load( 'ballTake_sprite_reserve3.gltf', async function ( gltf ) {
+            const loader = new GLTFLoader().setPath( '/assets/js/models/gltf/' );
+            loader.load( 'Finall.gltf', async function ( gltf ) { //3 default
 
                 model = gltf.scene;
                 object = gltf;
@@ -38,7 +38,7 @@ function init() {
 
                 if (gltf.animations && gltf.animations.length) {
                     mixer = new THREE.AnimationMixer(model);
-                    const action = mixer.clipAction(gltf.animations[1]);
+                    const action = mixer.clipAction(gltf.animations[0]);
                     action.play();
                 }
 
@@ -83,17 +83,20 @@ function init() {
 
     const controls = new OrbitControls( camera, renderer.domElement );
     controls.target.set(0, 20, 0);
-    controls.enableRotate = false;
+    /*controls.enableRotate = false;
     controls.enablePan = false;
-    controls.enableZoom = false;
+    controls.enableZoom = false;*/
     controls.update();
 
     let do_action2 = document.querySelector('.do_action');
     
-    do_action2.onclick = function(){
+    do_action2.onclick = automatAnimate;
+
+    function automatAnimate(){
+        console.log(camera)
         do_action2.onclick = false;
         mixer = new THREE.AnimationMixer(model);
-        const action = mixer.clipAction(object.animations[0]);
+        const action = mixer.clipAction(object.animations[1]);
         action.loop = THREE.LoopOnce;
         action.clampWhenFinished = true;
         action.play();
@@ -116,7 +119,6 @@ function init() {
             let camX = 0;
             let camY = 27;
             let camZ = 125;
-            let prize_container = document.querySelector('.prize_container');
             let CamInterval = setInterval(()=>{
                 if(camX > 17 || camY > 20 || camZ > 65){
                     camX > 17 ? camX -= 0.33 : 16.9;
@@ -125,8 +127,9 @@ function init() {
                     camera.position.set(camX, camY, camZ);
                 }   
                 else{
+                    console.log(camera.position)
                     clearInterval(CamInterval);
-                    prize_container.classList.add('active');
+                    showPrize();
                     setTimeout(()=>{
                         onWindowResize();
                     }, 1001)
@@ -135,8 +138,39 @@ function init() {
         }, 7900)
     }
 
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    function onMouseClick(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+
+        const intersects = raycaster.intersectObjects(scene.children);
+        if (intersects.length > 0) {
+            const firstObject = intersects[0].object;
+            if(firstObject?.parent?.name == 'Button'){
+                automatAnimate();
+            }
+        }
+    }
+
+    window.addEventListener('click', onMouseClick);
     window.addEventListener( 'resize', onWindowResize );
 
+}
+
+function showPrize(){
+    let prize_container = document.querySelector('.prize_container'),
+        prize_element = prize_container.querySelector('.prize_element'),
+        prize_code = prize_container.querySelector('.prize_code');
+    prize_container.classList.add('active');
+    setTimeout(()=>{
+        prize_element.classList.add('active');
+    }, 1000);
+    setTimeout(()=>{
+        prize_code.classList.add('active');
+    }, 2000);
 }
 
 function onWindowResize() {
