@@ -10,7 +10,7 @@ init();
 function init() {
     const container = document.querySelector('.slot_machine');
 
-    camera = new THREE.PerspectiveCamera( 45, container.offsetWidth / container.offsetHeight, 0.25, 300 );
+    camera = new THREE.PerspectiveCamera( 45, container.offsetWidth / container.offsetHeight, 0.25, 200 );
     //camera.position.set( - 1.8, 0.6, 2.7 );
     camera.position.set(0, 27, 125 );
     scene = new THREE.Scene();
@@ -74,7 +74,7 @@ function init() {
      );
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
-    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setPixelRatio( window.devicePixelRatio / 2 );
     renderer.setAnimationLoop(animate);
     renderer.setSize( container.offsetWidth, container.offsetHeight );
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
