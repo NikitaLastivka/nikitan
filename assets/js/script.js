@@ -2,6 +2,7 @@ import * as THREE from '/node_modules/three/build/three.module.js';
 import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from '/node_modules/three/examples/jsm/loaders/RGBELoader.js';
+import { DRACOLoader } from '/node_modules/three/examples/jsm/loaders/DRACOLoader.js';
 
 let camera, scene, renderer, mixer, model, object;
 const clock = new THREE.Clock();
@@ -9,69 +10,77 @@ init();
 
 function init() {
     const container = document.querySelector('.slot_machine');
-
+    let totalProgress = 0;
     camera = new THREE.PerspectiveCamera( 45, container.offsetWidth / container.offsetHeight, 0.25, 200 );
     //camera.position.set( - 1.8, 0.6, 2.7 );
     camera.position.set(0, 27, 125 );
     scene = new THREE.Scene();
-    let totalProgress = 0;
     new RGBELoader()
-        .setPath( 'https://smart-bike.nl/nikitan/assets/js/' )
-        .load( 'zwartkops_start_sunset_1k.hdr', function ( texture ) {
-            texture.mapping = THREE.EquirectangularReflectionMapping;
+    .setPath('assets/js/models/gltf/')
+    .load('zwartkops_start_sunset_1k.hdr', function (texture) {
+        texture.mapping = THREE.EquirectangularReflectionMapping;
 
-            scene.background = new THREE.Color(0xfb3c8c);
-            scene.environment = texture;
+        scene.background = new THREE.Color(0xfb3c8c);
+        scene.environment = texture;
 
+        render();
+
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+
+        const loader = new GLTFLoader().setPath('assets/js/models/gltf/Automat/');
+        loader.setDRACOLoader(dracoLoader);
+
+        loader.load('Fin.gltf', async function (gltf) {
+            model = gltf.scene;
+            object = gltf;
+
+            await renderer.compileAsync(model, camera, scene);
+
+            scene.add(model);
             render();
 
-            const loader = new GLTFLoader().setPath( 'https://smart-bike.nl/nikitan/assets/js/' );
-            loader.load( 'Finall.gltf', async function ( gltf ) { //3 default
+            if (gltf.animations && gltf.animations.length) {
+                mixer = new THREE.AnimationMixer(model);
+                const action = mixer.clipAction(gltf.animations[0]);
+                action.play();
+            }
 
-                model = gltf.scene;
-                object = gltf;
-                await renderer.compileAsync( model, camera, scene );
+            let loader_container = document.querySelector('.loader_container'),
+                containerBlock = document.querySelector('.container');
 
-                scene.add( model );
-
-                render();
-
-                if (gltf.animations && gltf.animations.length) {
-                    mixer = new THREE.AnimationMixer(model);
-                    const action = mixer.clipAction(gltf.animations[0]);
-                    action.play();
-                }
-
-                let loader_container = document.querySelector('.loader_container'),
-                    containerBlock = document.querySelector('.container');
-
-                containerBlock.style.display = 'flex';
-                onWindowResize();
-                loader_container.classList.remove('active');
-
-            }, 
-            (xhr) => {
-                let load_status = document.querySelector('.loader_percents');
-                const gltfProgress = (xhr.loaded / xhr.total) * 50;
-                totalProgress = 50 + gltfProgress;
-                load_status.textContent = totalProgress.toFixed(2) + '%';
-            },
-            (error) => {
-                console.error('Ошибка при загрузке GLTF файла:', error);
-            });
+            containerBlock.style.display = 'flex';
+            onWindowResize();
+            loader_container.classList.remove('active');
 
         }, 
         (xhr) => {
-            // Прогресс HDR загрузки
-            let load_status = document.querySelector('.loader_percents');
-            const hdrProgress = (xhr.loaded / xhr.total) * 50;
-            totalProgress = hdrProgress;
-            load_status.textContent = totalProgress.toFixed(2) + '%';
+            updateProgress(xhr.loaded, xhr.total, 50);
         },
         (error) => {
-            alert('Ошибка при загрузке HDR файла:', error);
+            console.error('Ошибка при загрузке GLTF файла:', error);
+        });
+    },
+    (xhr) => {
+        updateProgress(xhr.loaded, xhr.total, 50);
+    },
+    (error) => {
+        alert('Ошибка при загрузке HDR файла:', error);
+    }
+);
+    
+
+    function updateProgress(loaded, total, percentage) {
+        const progressElement = document.querySelector('.loader_percents');
+        const progress = (loaded / total) * percentage;
+        totalProgress += progress;
+        progressElement.textContent = totalProgress.toFixed(2) + '%';
+    
+        if (totalProgress >= 100) {
+            totalProgress = 100;
+            progressElement.textContent = 'Initializing';
         }
-     );
+    }
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     //renderer.setPixelRatio( window.devicePixelRatio );
@@ -161,6 +170,7 @@ function init() {
     setViewportHeight();
     window.onscroll = setViewportHeight;
 }
+
 
 function showPrize(){
     let prize_container = document.querySelector('.prize_container'),
