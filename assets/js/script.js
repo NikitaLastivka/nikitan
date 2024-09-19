@@ -31,7 +31,7 @@ function init() {
         const loader = new GLTFLoader().setPath('https://smart-bike.nl/nikitan/assets/js/Automat/');
         loader.setDRACOLoader(dracoLoader);
 
-        loader.load('Fin.gltf', async function (gltf) {
+        loader.load('FIN.gltf', async function (gltf) {
             model = gltf.scene;
             object = gltf;
 
