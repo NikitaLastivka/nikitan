@@ -16,7 +16,7 @@ function init() {
     camera.position.set(0, 27, 125 );
     scene = new THREE.Scene();
     new RGBELoader()
-    .setPath('assets/js/models/gltf/')
+    .setPath('https://smart-bike.nl/nikitan/assets/js/')
     .load('zwartkops_start_sunset_1k.hdr', function (texture) {
         texture.mapping = THREE.EquirectangularReflectionMapping;
 
@@ -28,7 +28,7 @@ function init() {
         const dracoLoader = new DRACOLoader();
         dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 
-        const loader = new GLTFLoader().setPath('assets/js/models/gltf/Automat/');
+        const loader = new GLTFLoader().setPath('https://smart-bike.nl/nikitan/assets/js/Automat/');
         loader.setDRACOLoader(dracoLoader);
 
         loader.load('Fin.gltf', async function (gltf) {
